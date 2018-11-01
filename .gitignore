@@ -1,0 +1,5 @@
+# To use copy/symlink it to ~/.gitignore and
+# `git config --global core.excludesfile ~/.gitignore`
+*.vim
+*.DS_Store
+.config/

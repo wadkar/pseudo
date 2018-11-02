@@ -11,3 +11,5 @@
   insteadOf = gh:
 [core]
   excludesfile = ~/git/pseudo/.gitignore
+[push]
+  default = simple

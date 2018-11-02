@@ -58,6 +58,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'farmergreg/vim-lastplace'
 Plug 'ntpeters/vim-better-whitespace'
 " let g:strip_whitespace_on_save = 1
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
@@ -96,5 +98,38 @@ nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>ve :edit $MYVIMRC<CR>
 nnoremap <leader>vr :source $MYVIMRC<CR>
 nnoremap Q :qa<CR>
-nnoremap <C-b> :Buffers<CR>
+
+" fzf-vim Commands
+" `Files [PATH]`    | Files (similar to  `:FZF` )
+" `GFiles [OPTS]`   | Git files ( `git ls-files` )
+" `GFiles?`         | Git files ( `git status` )
+" `Buffers`         | Open buffers
+" `Colors`          | Color schemes
+" `Ag [PATTERN]`    | {ag}{6} search result ( `ALT-A`  to select all,  `ALT-D`  to deselect all)
+" `Rg [PATTERN]`    | {rg}{7} search result ( `ALT-A`  to select all,  `ALT-D`  to deselect all)
+" `Lines [QUERY]`   | Lines in loaded buffers
+" `BLines [QUERY]`  | Lines in the current buffer
+" `Tags [QUERY]`    | Tags in the project ( `ctags -R` )
+" `BTags [QUERY]`   | Tags in the current buffer
+" `Marks`           | Marks
+" `Windows`         | Windows
+" `Locate PATTERN`  |  `locate`  command output
+" `History`         |  `v:oldfiles`  and open buffers
+" `History:`        | Command history
+" `History/`        | Search history
+" `Snippets`        | Snippets ({UltiSnips}{8})
+" `Commits`         | Git commits (requires {fugitive.vim}{9})
+" `BCommits`        | Git commits for the current buffer
+" `Commands`        | Commands
+" `Maps`            | Normal mode mappings
+" `Helptags`        | Help tags [1]
+" `Filetypes`       | File types
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>fl :Lines<CR>
+nnoremap <leader>flb :BLines<CR>
+nnoremap <leader>fw :Windows<CR>
+nnoremap <leader>fh :History
+nnoremap <leader>fc :Commands<CR>
+nnoremap <leader>fm :Maps<CR>
 

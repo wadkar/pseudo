@@ -113,3 +113,4 @@ bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 # Pseudo aliases
 [[ -f "${HOME}/.aliases.zsh" ]] && source "${HOME}/.aliases.zsh"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -35,7 +35,7 @@ let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
 let g:markdown_minlines = 100
 " C-a increment date/number; C-x decreases
 Plug 'tpope/vim-speeddating'
-" see unicode character representation try ga here: 🍺 
+" see unicode character representation try ga here: 🍺
 Plug 'tpope/vim-characterize'
 " add support for plist editing in vim
 Plug 'darfink/vim-plist'
@@ -129,7 +129,9 @@ nnoremap <leader>fb :Buffers<CR>
 nnoremap <leader>fl :Lines<CR>
 nnoremap <leader>flb :BLines<CR>
 nnoremap <leader>fw :Windows<CR>
-nnoremap <leader>fh :History
+nnoremap <leader>fh :History<CR>
 nnoremap <leader>fc :Commands<CR>
 nnoremap <leader>fm :Maps<CR>
 
+" fugitive
+nnoremap <leader>ga :Git add--interactive

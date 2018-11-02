@@ -1,0 +1,13 @@
+[user]
+  name = sudo
+  email = wadkar@gh
+[url "https://bitbucket.org/"]
+  insteadOf = bb/
+[url "https://github.com/"]
+  insteadOf = gh/
+[url "git@bitbucket.org:"]
+  insteadOf = bb:
+[url "git@github.com:"]
+  insteadOf = gh:
+[core]
+  excludesfile = ~/git/pseudo/.gitignore

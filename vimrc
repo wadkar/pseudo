@@ -68,6 +68,10 @@ set background=dark
 let g:solarized_termtrans=1
 colorscheme solarized
 
+" Judiciously space out your words
+" See: https://stackoverflow.com/a/1878983
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+
 " Dont clutter my workspace with temporary files
 set backupdir=~/.scratch/vim/backup,.vim/backup,.,~/
 set undodir=~/.scratch/vim/undo,.vim/undo,.

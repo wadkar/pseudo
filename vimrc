@@ -97,7 +97,7 @@ if executable('rg')
   let g:ctrlp_use_caching = 0
 endif
 
-nnoremap <leader>lcd :lcd %:p:h<CR>
+nnoremap <leader>cd :lcd %:p:h<CR>
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>ve :edit $MYVIMRC<CR>
 nnoremap <leader>vr :source $MYVIMRC<CR>

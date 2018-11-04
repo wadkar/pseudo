@@ -10,6 +10,6 @@
 [url "git@github.com:"]
   insteadOf = gh:
 [core]
-  excludesfile = ~/git/pseudo/.gitignore
+  excludesfile = ~/.gitignore
 [push]
   default = simple

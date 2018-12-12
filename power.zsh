@@ -3,7 +3,7 @@ mkdir -p ~/.scratch/vim/{backup,swap,sessions,undo} ~/.config
 
 echo 'Cloning zgen which manages zsh plugins into ~/.zgen'
 brew list | grep -q git ; [[ $? -eq 0 ]] || brew install git
-git clone 'https://github.com/tarjoilia/zgen.git' ~/.zgen/zgen
+git clone 'https://github.com/tarjoilija/zgen.git' ~/.zgen/zgen
 [[ -f ~/.zshrc ]] && echo 'Existing ~/.zshrc found'
 echo 'Please copy/symlink the sudo.zsh file to ~/.zshrc'
 

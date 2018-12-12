@@ -60,6 +60,14 @@ Plug 'ntpeters/vim-better-whitespace'
 " let g:strip_whitespace_on_save = 1
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
 
 call plug#end()
 
@@ -67,6 +75,11 @@ call plug#end()
 set background=dark
 let g:solarized_termtrans=1
 colorscheme solarized
+
+" Searching
+set hlsearch
+set ignorecase
+set smartcase
 
 " Judiciously space out your words
 " See: https://stackoverflow.com/a/1878983
@@ -83,6 +96,9 @@ set clipboard=unnamedplus
 set mouse=a
 let mapleader = "\<Space>"
 
+set updatetime=100
+set signcolumn=yes
+set relativenumber
 " ctrlp settings
 let g:ctrlp_map = '<C-b>'
 let g:ctrlp_cmd = 'CtrlP'

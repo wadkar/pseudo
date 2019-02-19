@@ -69,6 +69,8 @@ else
 endif
 let g:deoplete#enable_at_startup = 1
 
+Plug 'dbeniamine/cheat.sh-vim'
+
 call plug#end()
 
 " Use the Solarized Dark theme

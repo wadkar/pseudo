@@ -12,17 +12,6 @@ export VISUAL="${EDITOR:=vim}"
 export PAGER="${PAGER:=less}"
 export HISTFILE="~/.scratch/zhistory"
 export HOMEBREW_NO_AUTO_UPDATE=1
-# Because pyenv shims are picked before brew in $PATH,
-# `brew install` picks them for python bindings;
-# We need to remove them from the $PATH when calling brew
-# See: https://github.com/pyenv/pyenv/issues/106
-brew() {
-  if command -v pyenv &>/dev/null; then
-    /usr/bin/env PATH="${PATH//$(pyenv root)\/shims:/}" /usr/local/bin/brew "$@"
-  else
-    /usr/local/bin/brew "$@"
-  fi
-}
 
 #[[ -f ~/.config/zsh/powerlevel9krc.zsh ]] && source ~/.config/zsh/powerlevel9krc.zsh
 [[ -f ~/.config/zsh/zpreztorc.zsh ]] && source ~/.config/zsh/zpreztorc.zsh

@@ -3,3 +3,8 @@
 *.vim
 *.DS_Store
 .config/
+.python-version
+*.sqlite3
+.gz
+.vscode
+__pycache__

@@ -13,10 +13,10 @@ export PAGER="${PAGER:=less}"
 export HISTFILE="~/.scratch/zhistory"
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-#[[ -f ~/.config/zsh/powerlevel9krc.zsh ]] && source ~/.config/zsh/powerlevel9krc.zsh
-[[ -f ~/.config/zsh/zpreztorc.zsh ]] && source ~/.config/zsh/zpreztorc.zsh
-[[ -f ~/.config/zsh/zgenrc.zsh ]] && source ~/.config/zsh/zgenrc.zsh
-#[[ -f ~/.config/zsh/zplugrc.zsh ]] && source ~/.config/zsh/zplugrc.zsh
+#[[ -f ~/git/pseudo/powerlevel9krc.zsh ]] && source ~/git/pseudo/powerlevel9krc.zsh
+[[ -f ~/git/pseudo/zpreztorc.zsh ]] && source ~/git/pseudo/zpreztorc.zsh
+[[ -f ~/git/pseudo/zgenrc.zsh ]] && source ~/git/pseudo/zgenrc.zsh
+#[[ -f ~/git/pseudo/zplugrc.zsh ]] && source ~/git/pseudo/zplugrc.zsh
 
 # Override plugin defaults or settings
 setopt histignorespace
@@ -26,14 +26,8 @@ bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 # Pseudo aliases
 [[ -f "${HOME}/.aliases.zsh" ]] && source "${HOME}/.aliases.zsh"
+alias mkalias='${EDITOR:=vi} ${HOME}/.aliases.zsh && source ${HOME}/.aliases.zsh'
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "~/Downloads/packages/google-cloud-sdk/path.zsh.inc" ]; then
-  source "~/Downloads/packages/google-cloud-sdk/path.zsh.inc"
-fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '~/Downloads/packages/google-cloud-sdk/completion.zsh.inc' ]; then
-  source '~/Downloads/packages/google-cloud-sdk/completion.zsh.inc'
-fi
+# Put your customizations here
+export HOMEBREW_NO_AUTO_UPDATE=true

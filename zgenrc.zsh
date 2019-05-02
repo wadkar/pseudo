@@ -1,7 +1,7 @@
 ZGEN_RESET_ON_CHANGE=( \
   ${HOME}/.zshrc \
-  ${HOME}/.config/zsh/zpreztorc.zsh \
-  ${HOME}/.config/zsh/zgenrc.zsh \
+  ${HOME}/git/pseudo/zpreztorc.zsh \
+  ${HOME}/git/pseudo/zgenrc.zsh \
 )
 source "${HOME}/.zgen/zgen/zgen.zsh"
 

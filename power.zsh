@@ -13,7 +13,9 @@ git clone 'https://github.com/tmux-plugins/tpm.git' ~/.tmux/plugins/tpm
 echo 'Please copy/symlink tmux.conf to ~/.tmux.conf'
 echo 'Please read now deprecated tmux-powerline configuration from here:'
 echo 'https://github.com/erikw/tmux-powerline#deprecation-warning'
-echo 'Use your judgement and shell-foo to setup tmux-powerlinerc'
+echo 'Use your judgement and shell-foo to maintain tmux-powerlinerc'
+git clone 'https://github.com/erikw/tmux-powerline.git' ~/.tmux/plugins/tmux-powerline
+echo 'Dont forget to modify the default theme in ~/.tmux/plugins/tmux-powerline/themes/default.sh'
 
 echo 'Change the prompt theme to pure in sudo.zsh around line#42'
 echo 'Best viewed with iTerm2 v3; input.fontbureau.com in anonymous pro style'

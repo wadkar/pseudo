@@ -20,7 +20,7 @@ echo 'Best viewed with iTerm2 v3; input.fontbureau.com in anonymous pro style'
 echo 'To see the fancy icons tap into homebrew-cask-fonts as follows:'
 echo 'brew tap homebrew/cask-fonts'
 echo 'brew cask install font-anonymouspro-nerd-font-mono'
-echo 'Dont forget to set iTerm2 Preferences -> Profiles -> Text -> Change Font' 
+echo 'Dont forget to set iTerm2 Preferences -> Profiles -> Text -> Change Font'
 echo 'Select Use different font for non-ASCII text -> Change Non-ASCII Font'
 echo 'Select the Anonymouse Pro in the fixed with section'
 

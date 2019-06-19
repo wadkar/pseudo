@@ -54,6 +54,7 @@ Plug 'zplug/vim-zplug'
 " Theme
 Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'farmergreg/vim-lastplace'
 Plug 'ntpeters/vim-better-whitespace'
 " let g:strip_whitespace_on_save = 1

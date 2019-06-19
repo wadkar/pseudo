@@ -20,7 +20,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 
 # Override plugin defaults or settings
 setopt histignorespace
-unsetopt share_history
+#unsetopt share_history
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=26'
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down

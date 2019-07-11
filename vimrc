@@ -88,11 +88,12 @@ set smartcase
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 
 " Dont clutter my workspace with temporary files
-set backupdir=~/.scratch/vim/backup,.vim/backup,.,~/
-set undodir=~/.scratch/vim/undo,.vim/undo,.
+" End the paths with // and the files will have full path as names
+set backupdir=~/.scratch/vim/backup//,.vim/backup//,.,~//
+set undodir=~/.scratch/vim/undo//,.vim/undo//,.//
 set undofile
 set fileencoding=utf-8
-set directory=~/.scratch/vim/swap,.vim/swap,.,~/tmp,/var/tmp,/tmp
+set directory=~/.scratch/vim/swap//,.vim/swap//,.,~/tmp//,/var/tmp//,/tmp//
 
 set clipboard=unnamedplus
 set mouse=a
@@ -101,6 +102,7 @@ let mapleader = "\<Space>"
 set updatetime=100
 set signcolumn=yes
 set relativenumber
+set number
 " ctrlp settings
 let g:ctrlp_map = '<C-b>'
 let g:ctrlp_cmd = 'CtrlP'

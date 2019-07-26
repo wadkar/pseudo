@@ -47,32 +47,42 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'Raimondi/delimitMate'
 " Show changes to files with respect to git index
 Plug 'airblade/vim-gitgutter'
+set updatetime=100
 " Save your mistakes to be saved from your mistakes!
 Plug 'mbbill/undotree'
 " Edit zplug files nicely
 Plug 'zplug/vim-zplug'
 " Theme
 Plug 'altercation/vim-colors-solarized'
+"Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'farmergreg/vim-lastplace'
 Plug 'ntpeters/vim-better-whitespace'
 " let g:strip_whitespace_on_save = 1
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-let g:deoplete#enable_at_startup = 1
+"Plug 'SirVer/ultisnips'
+"Plug 'honza/vim-snippets'
 
-Plug 'dbeniamine/cheat.sh-vim'
+" vim-pyenv with jedi-vim
+Plug 'davidhalter/jedi-vim', { 'for': ['python', 'python3'] }
+Plug 'lambdalisue/vim-pyenv', { 'for': ['python', 'python3'] }
+" google/vim-codefmt
+" Add maktaba and codefmt to the runtimepath.
+" (The latter must be installed before it can be used.)
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+" Also add Glaive, which is used to configure codefmt's maktaba flags. See
+" `:help :Glaive` for usage.
+Plug 'google/vim-glaive'
 
 call plug#end()
 
+call glaive#Install()
+" the glaive#Install() should go after the "call vundle#end()"
+call glaive#Install()
+" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
+Glaive codefmt plugin[mappings]
+Glaive codefmt yapf_executable='yapf3'
 " Use the Solarized Dark theme
 set background=dark
 let g:solarized_termtrans=1
@@ -85,22 +95,49 @@ set smartcase
 
 " Judiciously space out your words
 " See: https://stackoverflow.com/a/1878983
-set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+" google/vim-codefmt will autoformat it for you
+augroup autoformat_settings
+  autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType dart AutoFormatBuffer dartfmt
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType gn AutoFormatBuffer gn
+  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+  autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType python AutoFormatBuffer yapf
+  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+  autocmd FileType vue AutoFormatBuffer prettier
+augroup END
+"
+set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
+
+"setup jedi-vim with vim-pyenv
+" if jedi#init_python()
+"   function! s:jedi_auto_force_py_version() abort
+"     let g:jedi#force_py_version = pyenv#python#get_internal_major_version()
+"   endfunction
+"   augroup vim-pyenv-custom-augroup
+"     autocmd! *
+"     autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
+"     autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
+"   augroup END
+" endif
 
 " Dont clutter my workspace with temporary files
 " End the paths with // and the files will have full path as names
-set backupdir=~/.scratch/vim/backup//,.vim/backup//,.,~//
-set undodir=~/.scratch/vim/undo//,.vim/undo//,.//
+set backupdir=~/.scratch/vim/backup//,.vim/backup//,.,~/
+set undodir=~/.scratch/vim/undo//,.vim/undo//,.
 set undofile
 set fileencoding=utf-8
 set directory=~/.scratch/vim/swap//,.vim/swap//,.,~/tmp//,/var/tmp//,/tmp//
-
+" Let me switch buffers without writing them
+set hidden
 set clipboard=unnamedplus
 set mouse=a
 let mapleader = "\<Space>"
 
 set updatetime=100
-set signcolumn=yes
+"set signcolumn=yes
 set relativenumber
 set number
 " ctrlp settings

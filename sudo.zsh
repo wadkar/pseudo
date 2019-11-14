@@ -12,6 +12,7 @@ export VISUAL="${EDITOR:=vim}"
 export PAGER="${PAGER:=less}"
 export HISTFILE="~/.scratch/zhistory"
 export HOMEBREW_NO_AUTO_UPDATE=1
+export DEFAULT_USER="$(whoami)"
 
 #[[ -f ~/git/pseudo/powerlevel9krc.zsh ]] && source ~/git/pseudo/powerlevel9krc.zsh
 [[ -f ~/git/pseudo/zpreztorc.zsh ]] && source ~/git/pseudo/zpreztorc.zsh

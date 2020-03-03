@@ -308,7 +308,7 @@ set wildignore+=*.pdf,*.dmg,*.app,*.ipa,*.apk,*.mobi,*.epub
 set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
 set wildignore+=*.ppt,*.pptx,*.doc,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps
 set wildignore+=*/.git/*,*/.svn/*,*.DS_Store
-set wildignore+=*/node_modules/*,*/nginx_runtime/*,*/build/*,*/logs/*,*/dist/*,*/tmp/*
+set wildignore+=*/node_modules/*,*/nginx_runtime/*,*/build/*,*/dist/*,*/tmp/*
 
 " Use the * register to interact with system clipboard
 "set clipboard = unnamedplus

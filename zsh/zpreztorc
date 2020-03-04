@@ -1,0 +1,113 @@
+#
+# Sets Prezto options.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#   Sudarshan Wadkar <wadkar@users.noreply.github.com>
+#
+
+
+# General
+
+# Set case-sensitivity for completion, history lookup, etc.
+zstyle ':prezto:*:*' case-sensitive 'no'
+# Color output (auto set to 'no' on dumb terminals).
+zstyle ':prezto:*:*' color 'yes'
+
+# Utility
+# Enabled safe options. This aliases cp, ln, mv and rm so that they prompt
+# before deleting or overwriting files. Set to 'no' to disable this safer
+# behavior.
+zstyle ':prezto:module:utility' safe-ops 'yes'
+
+# Editor
+zstyle ':prezto:module:editor' key-bindings 'vi'
+zstyle ':prezto:module:editor' dot-expansion 'yes'
+# Use `p10k configure` for these, uncomment for pure prompt
+#zstyle ':prezto:module:editor' ps-context 'yes'
+#zstyle ':prezto:module:editor:info:keymap:primary' format '>>>'
+#zstyle ':prezto:module:editor:info:keymap:primary:insert' format 'I'
+#zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format 'I'
+#zstyle ':prezto:module:editor:info:keymap:alternate' format 'I'
+#zstyle ':prezto:module:editor:info:completing' format '...'
+
+# Git
+zstyle ':prezto:module:git:log:context' format 'brief'
+zstyle ':prezto:module:git:log:oneline' format '%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+zstyle ':prezto:module:git:status:ignore' submodules 'dirty'
+
+# Prompt
+zstyle ':prezto:module:prompt' theme 'powerlevel10k'
+# Use `p10k configure` for these
+#zstyle ':prezto:module:prompt' pwd-length 'short'
+
+
+# Python
+zstyle ':prezto:module:python' skip-virtualenvwrapper-init 'on'
+zstyle ':prezto:module:python:virtualenv' auto-switch 'no'
+
+# Completion
+zstyle ':prezto:module:completion:*:hosts' etc-host-ignores '0.0.0.0' '127.0.0.1'
+
+# Syntax Highlighting
+# By default, only the main highlighter is enabled.
+zstyle ':prezto:module:syntax-highlighting' highlighters \
+  'main' \
+  'brackets' \
+  'pattern' \
+  'line' \
+  'cursor' \
+  'root'
+
+# Set syntax highlighting styles.
+# zstyle ':prezto:module:syntax-highlighting' styles \
+#   'builtin' 'bg=blue' \
+#   'command' 'bg=blue' \
+#   'function' 'bg=blue'
+#
+# Set syntax pattern styles.
+# zstyle ':prezto:module:syntax-highlighting' pattern \
+#   'rm*-rf*' 'fg=white,bold,bg=red'
+
+
+# TODO: Overload default modules: homebrew, osx
+# Add additional directories to load prezto modules from
+# zstyle ':prezto:load' pmodule-dirs $HOME/.zprezto-contrib
+
+# Allow module overrides when pmodule-dirs causes module name collisions
+# zstyle ':prezto:load' pmodule-allow-overrides 'yes'
+
+# Set the Prezto modules to load (browse modules).
+# XXX: Order of module matters
+# XXX: Utility module sets up bracketed-paste-url-magic
+# See: https://web.archive.org/web/20200110184223/https://cirw.in/blog/bracketed-paste
+# environement always comes first
+# utility before editor
+# Middle we order alphabetically
+#  'homebrew' \
+#  'osx' \
+#  'ssh' \
+# The last part order is utility>completion>syntax-highlighting>prompt>history-substring-search>autosuggestions
+zstyle ':prezto:load' pmodule \
+  'environment' \
+  'utility' \
+  'editor' \
+  'archive' \
+  'alias-tips' \
+  'directory' \
+  'docker' \
+  'git' \
+  'gpg' \
+  'history' \
+  'python' \
+  'node' \
+  'ruby' \
+  'completion' \
+  'syntax-highlighting' \
+  'prompt' \
+  'history-substring-search' \
+  'autosuggestions'
+
+# Autosuggestions
+# Set the query found color.
+# zstyle ':prezto:module:autosuggestions:color' found ''

@@ -1,0 +1,74 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#   Sudarshan Wadkar <wadkar@users.noreply.github.com>
+#
+
+# Note that unlike bashrc, zshrc is only sourced in interactive mode. Therefore
+# We should ideally set the environment variables in .zshenv/.zprofile, as is the case with prezto setup
+# We hope that the OS manufacturer has set those properly in a system wide fashion in /etc/zprofile and configure our DEV environment here.
+# Tip: Use following for a plain old bash with default environment:
+# `env -i HOME="$HOME" bash -l`
+# See: https://superuser.com/a/1333539 for more
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block, everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Source Prezto from my git repository
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Aliases
+alias mkalias='${EDITOR:-vi} ~/.aliases.zsh && source ~/.aliases.zsh'
+[[ -f ~/.aliases.zsh ]] && source ~/.aliases.zsh
+#[[ -d ~/bin ]] && export PATH="$HOME/bin:$PATH" # this needs to go in .zprofile
+
+# dont phone home without explicit permission
+export GATSBY_TELEMETRY_DISABLED=1
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_ANALYTICS=1
+# Avoid brew compiling/installing against pyenv installed python
+#(( $+commands[pyenv] )) && alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
+alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
+#
+#brew() {
+#  if (( $+commands[pyenv] )); then
+#    /usr/bin/env PATH="${PATH//$(pyenv root)\/shims:/}" /usr/local/bin/brew "$@"
+#  fi
+#}
+
+# Override plugin defaults or settings
+setopt histignorespace
+#unsetopt share_history
+
+# TODO
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=26'
+#bindkey -M vicmd 'k' history-substring-search-up
+#bindkey -M vicmd 'j' history-substring-search-down
+
+# Tools and plugins initialization
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow -g '!*/{.git,node_modules,.cache}/*' -g '!~/Music' 2> /dev/null"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+[[ -f ~/git/z/z.sh ]] && source ~/git/z/z.sh
+# if [[ -f ~/git/wadkar/pythonrc/pythonrc.py ]] ; then
+#   export PYTHONSTARTUP="${HOME}/git/wadkar/pythonrc/pythonrc.py"
+# fi
+
+# rbenv + ruby-build should use brew's OpenSSL which gets upgraded
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+
+# Theme
+#ZLE_RPROMPT_INDENT=0
+#source ~/git/powerlevel10k/powerlevel10k.zsh-theme #use prezto prompt
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

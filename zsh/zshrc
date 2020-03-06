@@ -54,11 +54,60 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=26'
 #bindkey -M vicmd 'j' history-substring-search-down
 
 # Tools and plugins initialization
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow -g '!*/{.git,node_modules,.cache}/*' -g '!~/Music' 2> /dev/null"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-[[ -f ~/git/z/z.sh ]] && source ~/git/z/z.sh
+# Jump by most recently used, see: https://github.com/rupa/z
+if [[ -f ~/git/z/z.sh ]]; then
+  source ~/git/z/z.sh
+  alias j=z
+fi
+
+# FZF
+if [[ -f ~/.fzf.zsh ]]; then
+  source ~/.fzf.zsh
+  # Use ripgrep to find files without following symbolic links
+  __rgcmd=(rg --files --no-follow)
+  # Include hidden files as well as those ignored by .gitignore
+  __rgcmd+=(--no-ignore --hidden)
+  # Ignore following noisy directories (! must be single quoted)
+  __rgcmd+=(--glob "'!**/node_modules/'")
+  __rgcmd+=(--glob "'!**/.git/'")
+  __rgcmd+=(--glob "'!**/.cache/'")
+  # Ignore these special directories when Ctrl+T is run from $HOME
+  __rgcmd+=(--glob "'!**/Music/'")
+  __rgcmd+=(--glob "'!**/Library/'")
+  __rgcmd+=(--glob "'!**/Pictures/'")
+  __rgcmd+=(--glob "'!**/.pyenv/'")
+  __rgcmd+=(--glob "'!**/.nodenv/'")
+  __rgcmd+=(--glob "'!**/.rbenv/'")
+  __rgcmd+=(--glob "'!**/.zprezto/'")
+  export FZF_DEFAULT_COMMAND="${__rgcmd[@]}"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  unset __rgcmd
+fi
+
+# Python setup
+if [[ -d ~/.pyenv ]]; then
+  export PYENV_ROOT="${HOME}/.pyenv"
+  export path=( "${PYENV_ROOT}/bin" $path )
+  eval "$(pyenv init - --no-rehash zsh)"
+  if [[ -d "${PYENV_ROOT}/plugins/python-virtualenv" ]]; then
+    eval "$(pyenv virtualenv-init - zsh)"
+  fi
+  # Load PIP completion using cache because it is slow (0.25s!)
+  __pip_cmd="$(pyenv which pip 2>/dev/null)"
+  __pip_cache="${HOME}/.cache/pyenv-pip-cache.zsh"
+  # If the __pip_cmd script is newer than cache file or the cache is empty
+  if [[ "$__pip_cmd" -nt "$__pip_cache" || ! -s "$__pip_cache" ]]; then
+    # Use the generated completion function for all pip* versions
+    "$__pip_cmd" completion --zsh \
+      | sed -e "s%\(compctl -K [-_[:alnum:]]* pip\).*%\1{,2,3}{,.{0..9}}%" \
+      >! "$__pip_cache" \
+      2> /dev/null
+  fi
+  [[ -s "$__pip_cache" ]] && source "$__pip_cache"
+  unset __pip_cmd __pip_cache
+fi
+
 # if [[ -f ~/git/wadkar/pythonrc/pythonrc.py ]] ; then
 #   export PYTHONSTARTUP="${HOME}/git/wadkar/pythonrc/pythonrc.py"
 # fi

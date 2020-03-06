@@ -41,11 +41,6 @@ zstyle ':prezto:module:prompt' theme 'powerlevel10k'
 # Use `p10k configure` for these
 #zstyle ':prezto:module:prompt' pwd-length 'short'
 
-
-# Python
-zstyle ':prezto:module:python' skip-virtualenvwrapper-init 'on'
-zstyle ':prezto:module:python:virtualenv' auto-switch 'no'
-
 # Completion
 zstyle ':prezto:module:completion:*:hosts' etc-host-ignores '0.0.0.0' '127.0.0.1'
 
@@ -99,7 +94,6 @@ zstyle ':prezto:load' pmodule \
   'git' \
   'gpg' \
   'history' \
-  'python' \
   'node' \
   'ruby' \
   'completion' \

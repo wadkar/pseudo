@@ -1,0 +1,20 @@
+{
+  //comments are okay in coc-settings.json
+  //cspell:disable
+  "python.jediPath": "~/.pyenv/versions/neovim-3.8.2/lib/python3.8/site-packages/",
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  //Note that pylint needs to be installed in venv
+  "python.linting.pylintPath": "~/.pyenv/versions/neovim-3.8.2/bin/pylint",
+  //XXX: If using pylint-venv==2.0.0 then try:
+  //"python.linting.pylintArgs": ["--init-hook", "import pylint_venv; venv=pylint_venv.detect_venv(); _ = pylint_venv.activate_venv(venv) if venv else None; print(f'{venv} activated!')"],
+  "python.linting.pylintArgs": ["--init-hook", "import pylint_venv; pylint_venv.inithook(force_venv_activation=True)"],
+  //"python.sortImports.path": "~/.pyenv/versions/neovim-3.8.2/bin/isort",
+  "python.formatting.provider": "black",
+  "python.formatting.blackPath": "~/.pyenv/versions/neovim-3.8.2/bin/black",
+  //"python.formatting.blackArgs": ["-S"],
+  "cSpell.enabled": false,
+  "cSpell.languageSettings": [
+      {"languageId":"vim", "allowCompoundWords": true}
+  ]
+}

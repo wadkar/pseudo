@@ -1,0 +1,2 @@
+--external-downloader aria2c
+--external-downloader-args '-c -x 8 -s 8 -k 1M'

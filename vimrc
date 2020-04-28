@@ -13,7 +13,7 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 " Automagically repeat last command with .
 Plug 'tpope/vim-repeat'
-" gcc on selection toggles commenting
+" gc on selection toggles commenting
 Plug 'tpope/vim-commentary'
 " Git related syntax/filetype configuration
 Plug 'tpope/vim-git'
@@ -54,8 +54,8 @@ Plug 'mbbill/undotree'
 Plug 'zplug/vim-zplug'
 " Theme
 Plug 'altercation/vim-colors-solarized'
-"Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug '/usr/local/opt/fzf'
+"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'farmergreg/vim-lastplace'
 Plug 'ntpeters/vim-better-whitespace'
@@ -64,25 +64,26 @@ Plug 'ntpeters/vim-better-whitespace'
 "Plug 'honza/vim-snippets'
 
 " vim-pyenv with jedi-vim
-Plug 'davidhalter/jedi-vim', { 'for': ['python', 'python3'] }
-Plug 'lambdalisue/vim-pyenv', { 'for': ['python', 'python3'] }
+"Plug 'davidhalter/jedi-vim', { 'for': ['python', 'python3'] }
+"Plug 'lambdalisue/vim-pyenv', { 'for': ['python', 'python3'] }
+"Plug 'psf/black'
 " google/vim-codefmt
 " Add maktaba and codefmt to the runtimepath.
 " (The latter must be installed before it can be used.)
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'
+"Plug 'google/vim-maktaba'
+"Plug 'google/vim-codefmt'
 " Also add Glaive, which is used to configure codefmt's maktaba flags. See
 " `:help :Glaive` for usage.
-Plug 'google/vim-glaive'
+"Plug 'google/vim-glaive'
 
 call plug#end()
 
-call glaive#Install()
+"call glaive#Install()
 " the glaive#Install() should go after the "call vundle#end()"
-call glaive#Install()
+"call glaive#Install()
 " Optional: Enable codefmt's default mappings on the <Leader>= prefix.
-Glaive codefmt plugin[mappings]
-Glaive codefmt yapf_executable='yapf3'
+"Glaive codefmt plugin[mappings]
+"Glaive codefmt yapf_executable='yapf3'
 " Use the Solarized Dark theme
 set background=dark
 let g:solarized_termtrans=1
@@ -125,11 +126,11 @@ set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 
 " Dont clutter my workspace with temporary files
 " End the paths with // and the files will have full path as names
-set backupdir=~/.scratch/vim/backup//,.vim/backup//,.,~/
-set undodir=~/.scratch/vim/undo//,.vim/undo//,.
-set undofile
+"set backupdir=~/.scratch/vim/backup//,.vim/backup//,.,~/
+"set undodir=~/.scratch/vim/undo//,.vim/undo//,.
+"set undofile
 set fileencoding=utf-8
-set directory=~/.scratch/vim/swap//,.vim/swap//,.,~/tmp//,/var/tmp//,/tmp//
+"set directory=~/.scratch/vim/swap//,.vim/swap//,.,~/tmp//,/var/tmp//,/tmp//
 " Let me switch buffers without writing them
 set hidden
 set clipboard=unnamedplus

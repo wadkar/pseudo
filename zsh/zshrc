@@ -46,7 +46,8 @@ alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
 
 # Override plugin defaults or settings
 setopt histignorespace
-#unsetopt share_history
+unsetopt share_history
+setopt inc_append_history_time
 
 # TODO
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=26'
@@ -93,6 +94,7 @@ if [[ -d ~/.pyenv ]]; then
   if [[ -d "${PYENV_ROOT}/plugins/python-virtualenv" ]]; then
     eval "$(pyenv virtualenv-init - zsh)"
   fi
+  export PYENV_VIRTUALENV_DISABLE_PROMPT=1
   # Load PIP completion using cache because it is slow (0.25s!)
   __pip_cmd="$(pyenv which pip 2>/dev/null)"
   __pip_cache="${HOME}/.cache/pyenv-pip-cache.zsh"

@@ -76,13 +76,10 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
 # XXX: Order of module matters
 # XXX: Utility module sets up bracketed-paste-url-magic
 # See: https://web.archive.org/web/20200110184223/https://cirw.in/blog/bracketed-paste
-# environement always comes first
-# utility before editor
-# Middle we order alphabetically
-#  'homebrew' \
-#  'osx' \
-#  'ssh' \
-# The last part order is utility>completion>syntax-highlighting>prompt>history-substring-search>autosuggestions
+# BEGIN>environment>...>utility>editor>...MIDDLE...
+# environment always comes first, and utility needs to come before editor
+# Middle we order alphabetically and lastly we need ensure that:
+# utility>completion>syntax-highlighting>prompt>history-substring-search>autosuggestions
 zstyle ':prezto:load' pmodule \
   'environment' \
   'utility' \

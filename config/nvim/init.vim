@@ -2,13 +2,17 @@
 " cSpell:ignore tpope,raimondi,plist,christoomey,roxma,junegunn,antoinemadec
 " cSpell:ignore neoclide,honza,mbbill,ntpeters,thaerkh,itchyny
 " Set mapleader now so that they get picked by plugins
+" XXX: neovim inside vscode support
+if !exists('g:vscode')
 let mapleader="\<Space>"
 
 " Set proper host programs
-let g:python3_host_prog = $HOME . '/.pyenv/versions/neovim/bin/python'
-"let g:python_host_prog = $HOME . '/.pyenv/versions/neovim-2.7.17/bin/python'
+let g:python3_host_prog = $HOME . '/.pyenv/versions/neovim-3.8.2/bin/python'
+let g:python_host_prog = $HOME . '/.pyenv/versions/neovim-2.7.17/bin/python'
 let g:ruby_host_prog = $HOME . '/.rbenv/versions/2.6.5/bin/neovim-ruby-host'
-let g:node_host_prog = '/usr/local/bin/neovim-node-host'
+" Make sure you change the shebang accordingly
+let g:node_host_prog = $HOME . '/.nodenv/versions/12.16.2/bin/neovim-node-host'
+let g:coc_node_path = $HOME . '/.nodenv/versions/12.16.2/bin/node'
 
 " vim-plug
 call plug#begin()
@@ -108,6 +112,7 @@ let g:workspace_autosave_untrailspaces = 0
 Plug 'whatyouhide/vim-lengthmatters'
 " Default is 81, we set it to black's 89. See: https://youtu.be/wf-BqAjZb8M?t=260
 let g:lengthmatters_start_at_column=89
+let g:lengthmatters_highlight_one_column=1
 
 " TODO: Needs extensive configuration for full satisfaction
 "Plug 'itchyny/lightline.vim'
@@ -121,7 +126,9 @@ let g:airline_solarized_bg = 'dark'
 let g:airline_powerline_fonts = 1
 
 " 24bit colorscheme!
-Plug 'icymind/NeoSolarized'
+"Plug 'icymind/NeoSolarized'
+Plug 'lifepillar/vim-solarized8'
+let g:solarized_termtrans = 1
 
 "
 " Type2: The plugin shortcuts are muscle memorized
@@ -166,15 +173,18 @@ Plug 'tpope/vim-unimpaired'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'antoinemadec/coc-fzf'
 
-" Python <3
+" Backend
 let g:coc_global_extensions = ['coc-marketplace']
 let g:coc_global_extensions+= ['coc-python', 'coc-vimlsp', 'coc-yaml']
+
+" DevOps
+let g:coc_global_extensions = ['coc-sh']
 
 " Frontend
 let g:coc_global_extensions+= ['coc-tsserver', 'coc-html', 'coc-css']
 let g:coc_global_extensions+= ['coc-emmet', 'coc-html', 'coc-css', 'coc-json']
 let g:coc_global_extensions+= ['coc-webpack', 'coc-prettier']
-"let g:coc_global_extensions += ['coc-eslint', 'coc-stylelint']
+"let g:coc_global_extensions += ['coc-tslint', 'coc-eslint', 'coc-stylelint']
 "let g:coc_global_extensions += ['coc-styled-components', 'coc-tailwindcss']
 "Unfinished
 "let g:coc_global_extensions += ['coc-inline-jest']
@@ -190,8 +200,8 @@ let g:coc_global_extensions+= ['coc-webpack', 'coc-prettier']
 let g:coc_global_extensions+= ['coc-snippets']
 Plug 'honza/vim-snippets'
 
-" TODO: In `tabnine.openConfig` set `"ignore_all_lsp": true`
-let g:coc_global_extensions+= ['coc-tabnine']
+" XXX: Hogs CPU, also don't trust binaries. Better use tags
+"let g:coc_global_extensions+= ['coc-tabnine']
 
 "XXX: delimitmate is good enough?
 "let g:coc_global_extensions += ['coc-pairs']
@@ -251,15 +261,6 @@ call plug#end()
 " Option settings
 "
 
-set termguicolors
-colorscheme NeoSolarized
-set background=dark
-
-" Taken from nvim's `:h guicursor`
-set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-  \,sm:block-blinkwait175-blinkoff150-blinkon175
-
 " Dont create swap/backup/etc. temporary files, undodir is good enough
 " Also some coc servers have issues with backup files, see #649.
 set nobackup
@@ -267,6 +268,7 @@ set nowritebackup
 set noswapfile
 set undofile
 set undodir=~/.scratch/vim/undo//,~/.config/nvim/undo//,.vim/undo//,/tmp//,.
+set hidden
 set autoread
 set fileencoding=utf-8
 
@@ -274,8 +276,11 @@ set fileencoding=utf-8
 set updatetime=100
 
 " Use mouse when available
-set mouse=a
+if has('mouse')
+  set mouse=a
+endif
 
+" Indentation and tabs (additional support by vim-sleuth)
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
@@ -291,11 +296,24 @@ set number
 set hlsearch
 set ignorecase
 set smartcase
+"Use the default grep, for better UX stick with FZF
+"set grepprg
 
 " Commandline
-set laststatus=2
+" Don't show --INSERT-- etc. in the cmdline
 set noshowmode
+
+" Shows partial command in the lower right of the cmdline
 set showcmd
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Default 4000ms is too long, set it to 100ms for better UX.
+set updatetime=100
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
 
 " Ignore these types of files during completion, also ignore case
 set wildignorecase
@@ -313,6 +331,28 @@ set wildignore+=*/node_modules/*,*/nginx_runtime/*,*/build/*,*/dist/*,*/tmp/*
 " Use the * register to interact with system clipboard
 "set clipboard = unnamedplus
 
+" Save global CamelCase variables to sessions
+set sessionoptions+=globals
+
+" Split vertical windows right to the current windows
+set splitright
+
+" Split horizontal windows below to the current windows
+set splitbelow
+
+" Colors
+set termguicolors
+set background=dark
+colorscheme solarized8_flat
+
+" Taken from nvim's `:h guicursor`
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+  \,sm:block-blinkwait175-blinkoff150-blinkon175
+
+" TODO: Configure statusline
+set laststatus=2
+
 "
 " Command Mapping
 "
@@ -320,6 +360,10 @@ set wildignore+=*/node_modules/*,*/nginx_runtime/*,*/build/*,*/dist/*,*/tmp/*
 "
 " My mappings
 "
+
+" Moving around
+nnoremap H :tabprevious<CR>
+nnoremap L :tabnext<CR>
 
 " Make 0 go to first non empty character and ^ to beginning of line
 nnoremap 0 ^
@@ -364,8 +408,8 @@ augroup fzf_status
 augroup end
 
 " Fugitive mappings
-nnoremap <silent> <leader>gs :GStatus
-nnoremap <silent> <leader>gd :Gdiff
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
 
 " ToggleWorkspace
 nnoremap <silent> <leader>s :ToggleWorkspace<CR>
@@ -380,23 +424,6 @@ nnoremap <silent> <leader>u :UndotreeToggle<CR>
 "
 " CoC Config
 "
-
-" TextEdit might fail if hidden is not set.
-set hidden
-
-" Already my default
-set nobackup
-set nowritebackup
-
-" Give more space for displaying messages.
-set cmdheight=2
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
@@ -507,3 +534,5 @@ nnoremap <silent> <leader>cl  :<C-u>CocFzfListLocation<CR>
 nnoremap <silent> <leader>co  :<C-u>CocFzfListOutline<CR>
 nnoremap <silent> <leader>cr  :<C-u>CocFzfListResume<CR>
 nnoremap <silent> <leader>cs  :<C-u>CocFzfListSymbols<CR>
+endif
+" XXX: neovim inside vscode support

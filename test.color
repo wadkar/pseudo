@@ -1,0 +1,17 @@
+echo 'Testing rainbow fences...'
+awk 'BEGIN{
+    s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
+    for (colnum = 0; colnum<77; colnum++) {
+        r = 255-(colnum*255/76);
+        g = (colnum*510/76);
+        b = (colnum*255/76);
+        if (g>255) g = 510-g;
+        printf "\033[48;2;%d;%d;%dm", r,g,b;
+        printf "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
+        printf "%s\033[0m", substr(s,colnum+1,1);
+    }
+    printf "\n";
+}'
+echo 'To test italic/blink/undercurls, copy pasta following line in the source'
+# TODO: use awk?
+#echo -ne \\e\[1\;3\;4:3\;5\;53\;38\;2\;255\;127\;0\;58\;2\;0\;48\;255\;48\;2\;255\;0\;{0..255..8}mX \\e\[0m\\n

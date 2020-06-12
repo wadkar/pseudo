@@ -1,6 +1,6 @@
 [user]
-  name = Sudarshan Wadkar
-  email = sudarshan.wadkar@fractal.ai
+  name = wadkar
+  email = wadkar@users.noreply.github.com
 [url "https://bitbucket.org/"]
   insteadOf = bb/
 [url "https://github.com/"]
@@ -13,3 +13,5 @@
   excludesfile = ~/.gitignore
 [push]
   default = simple
+[pull]
+  ff = only

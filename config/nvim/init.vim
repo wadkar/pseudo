@@ -7,15 +7,18 @@ if !exists('g:vscode')
 let mapleader="\<Space>"
 
 " Set proper host programs
-let g:python3_host_prog = $HOME . '/.pyenv/versions/neovim-3.8.2/bin/python'
-let g:python_host_prog = $HOME . '/.pyenv/versions/neovim-2.7.17/bin/python'
-let g:ruby_host_prog = $HOME . '/.rbenv/versions/2.6.5/bin/neovim-ruby-host'
-" Make sure you change the shebang accordingly
-let g:node_host_prog = $HOME . '/.nodenv/versions/12.16.2/bin/neovim-node-host'
-let g:coc_node_path = $HOME . '/.nodenv/versions/12.16.2/bin/node'
+let g:python3_host_prog = $HOME . '/bin/neovim_python3_host_prog'
+let g:python_host_prog = $HOME . '/bin/neovim_python2_host_prog'
+let g:ruby_host_prog = $HOME . '/bin/neovim_ruby_host_prog'
+let g:node_host_prog = $HOME . '/bin/neovim_node_host_prog'
+let g:coc_node_path = $HOME . '/bin/neovim_coc_node_prog'
 
-" vim-plug
-call plug#begin()
+" To install vim-plug, do:
+" sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+"       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+" resolves to ~/.local/share/nvim/plugged
+call plug#begin(stdpath('data') . '/plugged')
 
 "
 " Type1: The plugin is fire and forget
@@ -177,14 +180,13 @@ Plug 'antoinemadec/coc-fzf'
 let g:coc_global_extensions = ['coc-marketplace']
 let g:coc_global_extensions+= ['coc-python', 'coc-vimlsp', 'coc-yaml']
 
-" DevOps
-let g:coc_global_extensions = ['coc-sh']
+" Systems
+let g:coc_global_extensions+= ['coc-sh']
 
 " Frontend
-let g:coc_global_extensions+= ['coc-tsserver', 'coc-html', 'coc-css']
-let g:coc_global_extensions+= ['coc-emmet', 'coc-html', 'coc-css', 'coc-json']
-let g:coc_global_extensions+= ['coc-webpack', 'coc-prettier']
-"let g:coc_global_extensions += ['coc-tslint', 'coc-eslint', 'coc-stylelint']
+let g:coc_global_extensions+= ['coc-html', 'coc-css', 'coc-json']
+let g:coc_global_extensions+= ['coc-tsserver', 'coc-webpack', 'coc-prettier']
+let g:coc_global_extensions+= ['coc-tslint', 'coc-eslint', 'coc-stylelint']
 "let g:coc_global_extensions += ['coc-styled-components', 'coc-tailwindcss']
 "Unfinished
 "let g:coc_global_extensions += ['coc-inline-jest']
@@ -197,13 +199,13 @@ let g:coc_global_extensions+= ['coc-webpack', 'coc-prettier']
 "let g:coc_snippet_next = '<c-j>'
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 "let g:coc_snippet_prev = '<c-k>'
-let g:coc_global_extensions+= ['coc-snippets']
+let g:coc_global_extensions+= ['coc-snippets', 'coc-emmet']
 Plug 'honza/vim-snippets'
 
 " XXX: Hogs CPU, also don't trust binaries. Better use tags
 "let g:coc_global_extensions+= ['coc-tabnine']
 
-"XXX: delimitmate is good enough?
+" XXX: delimitmate is good enough?
 "let g:coc_global_extensions += ['coc-pairs']
 
 " TODO: Inside a file do `cSpell:{enable,disable,word,ignore}` to
@@ -253,6 +255,7 @@ let g:coc_global_extensions+= ['coc-spell-checker']
 "let g:clever_f_smart_case = 1
 
 " C-a/C-x will also increase/decrease date/times in addition to number
+" TODO: Enable for notes taking?
 "Plug 'tpope/vim-speeddating'
 
 call plug#end()
@@ -526,13 +529,33 @@ xmap <silent> <TAB> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
-nnoremap <silent> <leader>cf  :Format<CR>
-nnoremap <silent> <leader>cd  :<C-u>CocFzfListDiagnostics<CR>
-nnoremap <silent> <leader>cc  :<C-u>CocFzfListCommands<CR>
-nnoremap <silent> <leader>ce  :<C-u>CocFzfListExtensions<CR>
-nnoremap <silent> <leader>cl  :<C-u>CocFzfListLocation<CR>
-nnoremap <silent> <leader>co  :<C-u>CocFzfListOutline<CR>
-nnoremap <silent> <leader>cr  :<C-u>CocFzfListResume<CR>
-nnoremap <silent> <leader>cs  :<C-u>CocFzfListSymbols<CR>
+nnoremap <silent> <leader>cf :Format<CR>
+nnoremap <silent> <leader>cd :<C-u>CocFzfList diagnostics<CR>
+nnoremap <silent> <leader>cc :<C-u>CocFzfList commands<CR>
+nnoremap <silent> <leader>ce :<C-u>CocFzfList extensions<CR>
+nnoremap <silent> <leader>cl :<C-u>CocFzfList location<CR>
+nnoremap <silent> <leader>co :<C-u>CocFzfList outline<CR>
+nnoremap <silent> <leader>cs :<C-u>CocFzfList symbols<CR>
+nnoremap <silent> <leader>cr :<C-u>CocFzfListResume<CR>
 endif
-" XXX: neovim inside vscode support
+
+" Shortcuts to move between tabs with < or > in normal mode
+" function! TabLeft()
+"    if tabpagenr() == 1
+"       execute "tabm"
+"    else
+"       execute "tabm -1"
+"    endif
+" endfunction
+
+" function! TabRight()
+"    if tabpagenr() == tabpagenr('$')
+"       execute "tabm" 0
+"    else
+"       execute "tabm +1"
+"    endif
+" endfunction
+
+nnoremap <silent> < :tabm -1<CR>
+nnoremap <silent> > :tabm +1<CR>
+

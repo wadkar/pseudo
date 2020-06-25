@@ -25,24 +25,20 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Aliases
-alias mkalias='${EDITOR:-vi} ~/.aliases.zsh && source ~/.aliases.zsh'
-[[ -f ~/.aliases.zsh ]] && source ~/.aliases.zsh
 #[[ -d ~/bin ]] && export PATH="$HOME/bin:$PATH" # this needs to go in .zprofile
 
 # dont phone home without explicit permission
 export GATSBY_TELEMETRY_DISABLED=1
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_ANALYTICS=1
+
+# Aliases
+alias mkalias='${EDITOR:-vi} ~/.aliases.zsh && source ~/.aliases.zsh'
+[[ -f ~/.aliases.zsh ]] && source ~/.aliases.zsh
 # Avoid brew compiling/installing against pyenv installed python
-#(( $+commands[pyenv] )) && alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
-alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
-#
-#brew() {
-#  if (( $+commands[pyenv] )); then
-#    /usr/bin/env PATH="${PATH//$(pyenv root)\/shims:/}" /usr/local/bin/brew "$@"
-#  fi
-#}
+if (( $+commands[pyenv] )) && (( $+commands[brew] )); then
+  alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
+fi
 
 # Override plugin defaults or settings
 setopt histignorespace

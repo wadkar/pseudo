@@ -105,7 +105,6 @@ if [[ -d ~/.pyenv ]]; then
     fi
     [[ -s "$__pip_cache" ]] && source "$__pip_cache"
   fi
-  [[ -s "$__pip_cache" ]] && source "$__pip_cache"
   unset __pip_cmd __pip_cache
 fi
 

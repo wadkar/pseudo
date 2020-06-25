@@ -1,6 +1,7 @@
 {
   //comments are okay in coc-settings.json
-  "python.jediPath": "~/.pyenv/versions/neovim-3.8.2/lib/python3.8/site-packages/",
+  //"npm.binPath": "/Users/wadkar/.nodenv/versions/12.18.0/bin/npm",
+  //"python.jediPath": "~/.pyenv/versions/neovim-3.8.2/lib/python3.8/site-packages/",
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
   //XXX: Somehow VIRTUAL_ENV is not set in os.environ dictionary, so detection wont work
@@ -8,10 +9,10 @@
   //"python.linting.pylintPath": "~/.pyenv/versions/neovim-3.8.2/bin/pylint",
   //"python.linting.pylintArgs": ["--init-hook", "import pylint_venv; pylint_venv.inithook(force_venv_activation=True)"],
   "python.formatting.provider": "black",
-  "python.formatting.blackPath": "~/.pyenv/versions/neovim-3.8.2/bin/black",
+  "python.formatting.blackPath": "~/bin/neovim_black",
   "cSpell.enabled": false,
   "cSpell.languageSettings": [
-      {"languageId":"vim", "allowCompoundWords": true}
+    { "languageId": "vim", "allowCompoundWords": true }
   ],
   "cSpell.userWords": [
     "conda",

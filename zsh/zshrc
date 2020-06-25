@@ -97,14 +97,17 @@ if [[ -d ~/.pyenv ]]; then
   export PYENV_VIRTUALENV_DISABLE_PROMPT=1
   # Load PIP completion using cache because it is slow (0.25s!)
   __pip_cmd="$(pyenv which pip 2>/dev/null)"
-  __pip_cache="${HOME}/.cache/pyenv-pip-cache.zsh"
-  # If the __pip_cmd script is newer than cache file or the cache is empty
-  if [[ "$__pip_cmd" -nt "$__pip_cache" || ! -s "$__pip_cache" ]]; then
-    # Use the generated completion function for all pip* versions
-    "$__pip_cmd" completion --zsh \
-      | sed -e "s%\(compctl -K [-_[:alnum:]]* pip\).*%\1{,2,3}{,.{0..9}}%" \
-      >! "$__pip_cache" \
-      2> /dev/null
+  if [[ $? -eq 0 ]]; then
+    __pip_cache="${HOME}/.cache/pyenv-pip-cache.zsh"
+    # If the __pip_cmd script is newer than cache file or the cache is empty
+    if [[ "$__pip_cmd" -nt "$__pip_cache" || ! -s "$__pip_cache" ]]; then
+      # Use the generated completion function for all pip* versions
+      "$__pip_cmd" completion --zsh \
+        | sed -e "s%\(compctl -K [-_[:alnum:]]* pip\).*%\1{,2,3}{,.{0..9}}%" \
+        >! "$__pip_cache" \
+        2> /dev/null
+    fi
+    [[ -s "$__pip_cache" ]] && source "$__pip_cache"
   fi
   [[ -s "$__pip_cache" ]] && source "$__pip_cache"
   unset __pip_cmd __pip_cache

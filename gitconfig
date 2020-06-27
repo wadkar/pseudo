@@ -1,6 +1,9 @@
 [user]
   name = wadkar
   email = wadkar@users.noreply.github.com
+  signingkey = 9B706731048923D9
+[commit]
+  gpgSign = true
 [url "https://bitbucket.org/"]
   insteadOf = bb/
 [url "https://github.com/"]
